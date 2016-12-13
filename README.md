@@ -13,6 +13,10 @@ This component can alsp be used to test some ES6 codes.
 
 `Babel` is also exposed in `window` Object, if you want to  some properties of Babel (presets, plugins and etc.), you can do it yourself by set `transformer` prop properly. 
 
+###Install
+
+`npm install react-ui-playground``
+
 ###The MIT License (MIT)
 
 Copyright (c) 2016 Jason Wang, contributors

@@ -1,5 +1,5 @@
 {
-  "name": "react-playground",
+  "name": "react-ui-playground",
   "version": "1.0.0",
   "description": "A pruned live jsx editor from React.",
   "scripts": {
