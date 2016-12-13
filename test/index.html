@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Playground</title>
+    <meta name="viewport" content="width=device-width">
+
+    <link rel="shortcut icon" href="">
+    <!--[if lte IE 8]>
+    <script src="./../node_modules/es5-shim/es5-shim.min.js"></script>
+    <script src="./../node_modules/es5-shim/es5-sham.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div id="container">
+</div>
+<script src="./../node_modules/react/dist/react-with-addons.js"></script>
+<script src="./../node_modules/react-dom/dist/react-dom.js"></script>
+<script src="./../dist/playground.min.js"></script>
+<script type="text/plain" id="code">
+class Timer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {secondsElapsed: 0};
+  }
+
+  tick() {
+    this.setState((prevState) => ({
+      secondsElapsed: prevState.secondsElapsed + 1
+    }));
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(() => this.tick(), 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  render() {
+    return (
+      <div>Seconds Elapsed: {this.state.secondsElapsed}</div>
+    );
+  }
+}
+
+ReactDOM.render(<Timer />, mountNode);
+
+</script>
+<script>
+    var TIMER_COMPONENT = document.getElementById('code').innerHTML.trim();
+
+    ReactDOM.render(React.createElement(ReactPlayground, {codeText: TIMER_COMPONENT}), document.getElementById('container'));
+</script>
+</body>
+</html>
