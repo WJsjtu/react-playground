@@ -25,7 +25,6 @@ var orderPlugin = new webpack.optimize.OccurrenceOrderPlugin();
 
 var defaultOptions = {
     externals: {
-        'jquery': 'jQuery',
         'react': 'React',
         'react-dom': 'ReactDOM'
     },
@@ -34,9 +33,7 @@ var defaultOptions = {
             test: /\.js$/,
             loader: 'babel'
         }, {
-            test: /\.(less|css)$/, loader: 'style-loader!css-loader?minimize=true!less-loader?minimize=true'
-        }, {
-            test: /\.(tmpl|txt)$/, loader: 'raw-loader'
+            test: /\.css$/, loader: 'style-loader!css-loader?minimize=true'
         }]
     }
 };

@@ -218,3 +218,4 @@ const ReactPlayground = React.createClass({
 });
 
 window.ReactPlayground = ReactPlayground;
+module.exports = ReactPlayground;
