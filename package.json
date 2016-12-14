@@ -1,6 +1,6 @@
 {
   "name": "react-ui-playground",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A pruned live jsx editor from React.",
   "scripts": {
     "start": "node tool/build.js"
@@ -22,14 +22,14 @@
     "codemirror": "^5.20.2",
     "css-loader": "^0.26.0",
     "es5-shim": "^4.5.9",
-    "react": "^15.4.0",
-    "react-dom": "^15.4.0",
     "react-addons-pure-render-mixin": "^15.4.0",
     "react-addons-shallow-compare": "^15.4.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.3"
   },
   "dependencies": {
+    "react": "^15.4.0",
+    "react-dom": "^15.4.0"
   },
   "main": "dist/playground.js",
   "files": [
