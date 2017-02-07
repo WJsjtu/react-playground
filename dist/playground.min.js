@@ -1,5 +1,5 @@
 /**
-* react-ui-playground v1.0.3
+* react-ui-playground v2.0.0
 *
 * Copyright 2016-present, 王健（Jason Wang）, contributors.
 * All rights reserved.
