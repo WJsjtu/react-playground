@@ -1,31 +1,82 @@
-var fs = require('fs');
-var path = require('path');
-var log = require('./log');
-var webpack = require('./webpack');
+const fs = require('fs');
+const path = require('path');
+const webpack = require('webpack');
 
-var logger = log("build", 'src/index.js');
-logger.start();
-var minDistPath = path.join(__dirname, './../dist/playground.min.js');
-var distPath = path.join(__dirname, './../dist/playground.js');
+const Logger = require('./Logger');
+const makeDirectory = require('./makeDirectory');
+const webpackTask = require('./webpackTask');
 
-webpack(
-    path.join(__dirname, './../src/index.js'), minDistPath
-).then(function () {
-    var babel = fs.readFileSync(path.join(__dirname, '../node_modules/babel-standalone/babel.min.js'));
-    var playground = fs.readFileSync(minDistPath);
-    fs.writeFileSync(minDistPath, babel + playground);
-    logger.finish();
-}, function (e) {
-    logger.error(e);
-});
+const distPath = path.resolve(__dirname, '../dist/');
+const sourcePath = path.resolve(__dirname, '../src/');
 
-webpack(
-    path.join(__dirname, './../src/index.js'), distPath, true
-).then(function () {
-    var babel = fs.readFileSync(path.join(__dirname, '../node_modules/babel-standalone/babel.js'));
-    var playground = fs.readFileSync(distPath);
-    fs.writeFileSync(distPath, babel + playground);
-    logger.finish();
-}, function (e) {
-    logger.error(e);
-});
+const version = require('./../package.json').version;
+
+makeDirectory(distPath);
+
+const ChainedPromise = require('./ChainedPromise');
+
+ChainedPromise(
+    () => {
+        const logger = new Logger('build-uncompressed: playground', 'index.js');
+        logger.start();
+
+        return webpackTask(
+            {
+                entry: path.join(sourcePath, 'index.js'),
+                output: {
+                    path: distPath,
+                    filename: 'playground.js',
+                    library: 'ReactPlayground',
+                    libraryTarget: 'umd'
+                },
+                plugins: [
+                    new webpack.DefinePlugin({
+                        'process.env': {
+                            NODE_ENV: JSON.stringify('development'),
+                            LIB_VERSION: JSON.stringify(version)
+                        }
+                    })
+                ],
+                devtool: false//'source-map'
+            }
+        ).then(logger.finish.bind(logger), logger.error.bind(logger));
+    },
+    () => {
+        const logger = new Logger('build-compressed: playground', 'index.js');
+        logger.start();
+        return webpackTask(
+            {
+                entry: path.join(sourcePath, 'index.js'),
+                output: {
+                    path: distPath,
+                    filename: 'playground.min.js',
+                    library: 'ReactPlayground',
+                    libraryTarget: 'umd'
+                },
+                plugins: [
+                    new webpack.DefinePlugin({
+                        'process.env': {
+                            NODE_ENV: JSON.stringify('production'),
+                            LIB_VERSION: JSON.stringify(version)
+                        }
+                    }),
+                    new webpack.optimize.UglifyJsPlugin({
+                        sourceMap: false,
+                        compress: {
+                            dead_code: true,
+                            drop_debugger: true,
+                            unused: true,
+                            if_return: true,
+                            warnings: true,
+                            join_vars: true
+                        },
+                        output: {
+                            comments: false
+                        }
+                    })
+                ],
+                devtool: false//'source-map'
+            }
+        ).then(logger.finish.bind(logger), logger.error.bind(logger));
+    }
+);

@@ -9,12 +9,6 @@
     "transform-es3-property-literals",
     "transform-es3-member-expression-literals",
     "transform-class-properties",
-    "transform-flow-strip-types",
-    [
-      "transform-react-jsx",
-      {
-        "pragma": "createElement"
-      }
-    ]
+    "transform-flow-strip-types"
   ]
 }
