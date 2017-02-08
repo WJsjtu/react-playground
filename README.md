@@ -15,4 +15,4 @@ This component can alsp be used to test some ES6 codes.
 
 ###Install
 
-`npm install react-ui-playground``
+`npm install react-ui-playground`
