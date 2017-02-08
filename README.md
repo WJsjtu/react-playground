@@ -7,7 +7,7 @@ Set your code to the `codeText` prop of `window.ReactPlayground.default`.
 
 `ReactDOM.render(React.createElement(ReactPlayground.default, {codeText: TIMER_COMPONENT}), document.getElementById('container'));`
 
-[View online demo](http://wjsjtu.github.io/react-playground/test/index.html)
+[View online demo](http://wjsjtu.github.io/demos/playground.html)
 
 This component can alsp be used to test some ES6 codes.
 
