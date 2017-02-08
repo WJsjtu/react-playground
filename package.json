@@ -1,6 +1,6 @@
 {
   "name": "react-ui-playground",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A pruned live jsx editor from React.",
   "scripts": {
     "start": "node tool/build.js"
@@ -22,6 +22,7 @@
     "codemirror": "^5.23.0",
     "css-loader": "^0.26.1",
     "es5-shim": "^4.5.9",
+    "frequency-mangle-plugin": "^0.0.9",
     "react-addons-pure-render-mixin": "^15.4.2",
     "react-addons-shallow-compare": "^15.4.2",
     "style-loader": "^0.13.1",
@@ -32,9 +33,6 @@
     "react-dom": "^15.4.2"
   },
   "main": "dist/playground.js",
-  "files": [
-    "dist"
-  ],
   "author": {
     "name": "王健（Jason Wang）",
     "email": "jasonwang0421@gmail.com",
